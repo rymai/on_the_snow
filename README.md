@@ -1,5 +1,5 @@
 # On The Snow API Wrapper
-[![Gem Version](https://badge.fury.io/rb/on_the_snow.png)](http://badge.fury.io/rb/on_the_snow) [![Build Status](https://secure.travis-ci.org/rymai/on_the_snow.png?branch=master)](http://travis-ci.org/rymai/on_the_snow) [![Dependency Status](https://gemnasium.com/rymai/on_the_snow.png)](https://gemnasium.com/rymai/on_the_snow) [![Code Climate](https://codeclimate.com/github/rymai/on_the_snow.png)](https://codeclimate.com/github/rymai/on_the_snow)
+[![Gem Version](https://badge.fury.io/rb/on_the_snow.png)](http://badge.fury.io/rb/on_the_snow) [![Build Status](https://secure.travis-ci.org/rymai/on_the_snow.png?branch=master)](http://travis-ci.org/rymai/on_the_snow) [![Dependency Status](https://gemnasium.com/rymai/on_the_snow.png)](https://gemnasium.com/rymai/on_the_snow) [![Code Climate](https://codeclimate.com/github/rymai/on_the_snow.png)](https://codeclimate.com/github/rymai/on_the_snow) [![Coverage Status](https://coveralls.io/repos/rymai/on_the_snow/badge.png?branch=master)](https://coveralls.io/r/rymai/on_the_snow)
 
 This is an OnTheSnow Web Services REST API Ruby wrapper that aims to support all the API methods.
 
