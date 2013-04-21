@@ -42,4 +42,4 @@ module OnTheSnow
   end
 end
 
-Faraday.register_middleware :response, :on_the_snow => lambda { OnTheSnow::Response::OnTheSnowResponseHandler }
+Faraday.register_middleware :response, on_the_snow: OnTheSnow::Response::OnTheSnowResponseHandler

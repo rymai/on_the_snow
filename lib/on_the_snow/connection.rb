@@ -18,13 +18,13 @@ module OnTheSnow
     # @return [Faraday::Connection]
     def connection(options = {})
       default_options = {
-        :headers => {
-          :accept => 'application/json',
-          :user_agent => OnTheSnow::Config::DEFAULT_USER_AGENT,
-          :host => OnTheSnow::Config::DEFAULT_HOST
+        headers: {
+          accept: 'application/json',
+          user_agent: OnTheSnow::Config::DEFAULT_USER_AGENT,
+          host: OnTheSnow::Config::DEFAULT_HOST
         },
-        :ssl => { :verify => false },
-        :url => endpoint,
+        ssl: { verify: false },
+        url: endpoint,
       }
 
       @connection ||= Faraday.new(default_options.merge(connection_options)) do |builder|

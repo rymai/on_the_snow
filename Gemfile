@@ -23,5 +23,5 @@ group :test do
   gem 'rspec'
   gem 'vcr',     '~> 2.4'
   gem 'webmock', '~> 1.11'
-  gem 'coveralls', :require => false
+  gem 'coveralls', require: false
 end

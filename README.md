@@ -1,7 +1,10 @@
 # On The Snow API Wrapper
 [![Gem Version](https://badge.fury.io/rb/on_the_snow.png)](http://badge.fury.io/rb/on_the_snow) [![Build Status](https://secure.travis-ci.org/rymai/on_the_snow.png?branch=master)](http://travis-ci.org/rymai/on_the_snow) [![Dependency Status](https://gemnasium.com/rymai/on_the_snow.png)](https://gemnasium.com/rymai/on_the_snow) [![Code Climate](https://codeclimate.com/github/rymai/on_the_snow.png)](https://codeclimate.com/github/rymai/on_the_snow) [![Coverage Status](https://coveralls.io/repos/rymai/on_the_snow/badge.png?branch=master)](https://coveralls.io/r/rymai/on_the_snow)
 
-This is an OnTheSnow Web Services REST API Ruby wrapper that aims to support all the API methods.
+This is an [OnTheSnow Web Services REST API](http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html) Ruby wrapper that aims to support all the API methods.
+
+* Tested against Ruby 1.9.2, 1.9.3, Rubinius (1.9) & JRuby (1.9).
+* Not compatible with Ruby 1.8!
 
 ## Installation
 
@@ -20,14 +23,14 @@ $ bundle
 ## Usage
 
 ```ruby
-on_the_snow = OnTheSnow::Client.new(:domain => 'google.com',
-                                    :token => 'abcd1234',
-                                    :subscription => 'lite',
-                                    :lang => 'en',
-                                    :metric => 'met')
+on_the_snow = OnTheSnow::Client.new(domain: 'google.com',
+                                    token: 'abcd1234',
+                                    subscription: 'lite',
+                                    lang: 'en',
+                                    metric: 'met')
 
 on_the_snow.resort(5).attribution
-=> { :credit_line => 'Snow Reports provided by OnTheSnow.com', ... }
+=> { credit_line: 'Snow Reports provided by OnTheSnow.com', ... }
 
 # you can also use the shortcut method:
 on_the_snow = OnTheSnow.new(...)
