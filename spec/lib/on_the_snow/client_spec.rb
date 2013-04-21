@@ -24,7 +24,7 @@ describe OnTheSnow::Client do
     end
 
     context 'with attrs set' do
-      let(:client) { described_class.new(subscription: 'lite') }
+      let(:client) { described_class.new(:subscription => 'lite') }
 
       it 'returns the custom subscription' do
         client.subscription.should eq 'lite'
