@@ -50,7 +50,7 @@ module OnTheSnow
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortInfoWeb
         #
         def resort_info(resort_id)
-          get(api_level, 'resort/info', resort_id)
+          get(subscription, 'resort/info', resort_id)
         end
 
         # Get a list of Story objects which contain news stories.
@@ -83,7 +83,7 @@ module OnTheSnow
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortSnowReportWeb
         #
         def resort_snow_report(resort_id)
-          get(api_level, 'resort/snow', resort_id)
+          get(subscription, 'resort/snow', resort_id)
         end
       end
 

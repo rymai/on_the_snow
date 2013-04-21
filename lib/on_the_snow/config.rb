@@ -19,24 +19,25 @@ module OnTheSnow
     DEFAULT_API_PATH = 'axis2/services/SnowReport2009'
 
     # The domain for which you have access to the API
-    DEFAULT_API_DOMAIN = nil
+    DEFAULT_DOMAIN = nil
 
     # The token if none is set
-    DEFAULT_API_TOKEN = nil
+    DEFAULT_TOKEN = nil
 
     # The language if none is set
-    DEFAULT_API_LANG = nil
+    DEFAULT_LANG = nil
 
     # The metric if none is set ('imp' or 'met')
-    DEFAULT_API_METRIC = nil
+    DEFAULT_METRIC = nil
 
-    # The level of access to the API
+    # The subscription level access for the API
+    #
     # This can be:
     #   - lite
     #   - mobile
     #   - plus (aka 'mobile plus')
     #   - web (default)
-    DEFAULT_API_LEVEL = 'web'
+    DEFAULT_SUBSCRIPTION = 'web'
 
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "OnTheSnow Ruby Gem #{OnTheSnow::VERSION}"
@@ -45,11 +46,11 @@ module OnTheSnow
     VALID_OPTIONS_KEYS = [
       :adapter,
       :connection_options,
-      :api_domain,
-      :api_token,
-      :api_level,
-      :api_lang,
-      :api_metric
+      :domain,
+      :token,
+      :subscription,
+      :lang,
+      :metric
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS

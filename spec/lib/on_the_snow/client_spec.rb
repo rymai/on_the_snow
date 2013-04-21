@@ -24,10 +24,10 @@ describe OnTheSnow::Client do
     end
 
     context 'with attrs set' do
-      let(:client) { described_class.new(api_level: 'lite') }
+      let(:client) { described_class.new(subscription: 'lite') }
 
-      it 'returns the custom api_level' do
-        client.api_level.should eq 'lite'
+      it 'returns the custom subscription' do
+        client.subscription.should eq 'lite'
       end
     end
   end

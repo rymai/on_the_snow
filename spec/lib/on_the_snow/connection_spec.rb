@@ -4,9 +4,9 @@ require 'on_the_snow/connection'
 describe OnTheSnow::Connection do
 
   let(:client) do
-    stub('client', :api_domain => 'google.com',
-                   :api_token => 'abcd1234',
-                   :api_level => 'lite').extend(described_class)
+    stub('client', :domain => 'google.com',
+                   :token => 'abcd1234',
+                   :subscription => 'lite').extend(described_class)
   end
 
   describe '.endpoint' do

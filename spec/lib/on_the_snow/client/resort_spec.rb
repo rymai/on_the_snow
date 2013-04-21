@@ -122,7 +122,7 @@ describe OnTheSnow::Client::Resort::Helper do
       client.resort_cams(5)
     end
 
-    context 'real request', :vcr, :if => ForReal.ok? && ForReal.level?('web') do
+    context 'real request', :vcr, :if => ForReal.ok? && ForReal.subscription?('web') do
       it 'returns a valid response' do
         response = @client.resort_cams(5)
         # FIME: I don't have access to the OTS Cams service
@@ -204,7 +204,7 @@ describe OnTheSnow::Client::Resort::Helper do
       client.resort_photos(5)
     end
 
-    context 'real request', :vcr, :if => ForReal.ok? && ForReal.level?('web') do
+    context 'real request', :vcr, :if => ForReal.ok? && ForReal.subscription?('web') do
       it 'returns a valid response' do
         response = @client.resort_photos(5)
         # FIME: I don't have access to the OTS Cams service

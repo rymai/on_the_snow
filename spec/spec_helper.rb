@@ -41,8 +41,8 @@ module ForReal
     @available ||= File.exists?(file)
   end
 
-  def self.level?(level)
-    credentials[:api_level] == level
+  def self.subscription?(subscription)
+    credentials[:subscription] == subscription
   end
 
   def self.credentials

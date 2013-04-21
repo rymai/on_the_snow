@@ -20,11 +20,11 @@ $ bundle
 ## Usage
 
 ```ruby
-on_the_snow = OnTheSnow::Client.new(:api_domain => 'google.com',
-                                    :api_token => 'abcd1234',
-                                    :api_level => 'lite',
-                                    :api_lang => 'en',
-                                    :api_metric => 'met')
+on_the_snow = OnTheSnow::Client.new(:domain => 'google.com',
+                                    :token => 'abcd1234',
+                                    :subscription => 'lite',
+                                    :lang => 'en',
+                                    :metric => 'met')
 
 on_the_snow.resort(5).attribution
 => { :credit_line => 'Snow Reports provided by OnTheSnow.com', ... }
@@ -36,12 +36,12 @@ on_the_snow = OnTheSnow.new(...)
 ### `OnTheSnow::Client#initialize` options
 
 ```ruby
-:api_domain # Your subscription domain, mandatory.
-:api_token  # Your subscritpion token, mandatory. You can find your token by visiting http://services.onthesnow.com/axis2/services/SnowReport2009/tokens/YOUREMAIL/YOURPASSWORD
-:api_level  # Represents your level of subscription. It can be set to 'lite', 'mobile', 'plus' (aka Mobile plus) and 'web', defaults to 'web'.
-:api_lang   # Language for the results.
-:api_metric # Metric system for the results. It can be set to 'imp' (imperial) and 'met' (metric).
-            # Note: You must include both language and metric in your query string to override the default language.
+:domain        # Your subscription domain, mandatory.
+:token         # Your subscritpion token, mandatory. You can find your token by visiting http://services.onthesnow.com/axis2/services/SnowReport2009/tokens/YOUREMAIL/YOURPASSWORD
+:subscription  # Represents your level of subscription. It can be set to 'lite', 'mobile', 'plus' (aka Mobile plus) and 'web', defaults to 'web'.
+:lang          # Language for the results.
+:metric        # Metric system for the results. It can be set to 'imp' (imperial) and 'met' (metric).
+               # Note: You must include both language and metric in your query string to override the default language.
 ```
 
 ## Public API
