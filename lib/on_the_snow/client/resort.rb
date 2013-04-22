@@ -1,15 +1,20 @@
-# require 'on_the_snow/client/helpers'
+require 'on_the_snow/client/abstract'
 
 module OnTheSnow
   class Client
 
-    # Wrapper for the OnTheSnow REST API individual resort methods
+    # Wrapper for the OnTheSnow REST API individual resort methods.
     #
-    class Resort
+    class Resort < Abstract
+
+      def self.chainable_methods
+        %w[attribution cams deals info news photos snow_report]
+      end
 
       module Helper
         def resort(resort_id)
-          OnTheSnow::Client::Resort.new(self, resort_id)
+          @resorts ||= {}
+          @resorts[resort_id] ||= OnTheSnow::Client::Resort.new(self, resort_id)
         end
 
         # Gets the credit line data for resortd in SnowReport service.
@@ -84,19 +89,6 @@ module OnTheSnow
         #
         def resort_snow_report(resort_id)
           get(subscription, 'resort/snow', resort_id)
-        end
-      end
-
-      attr_reader :client, :id
-
-      def initialize(client, resort_id)
-        @client = client
-        @id = resort_id
-      end
-
-      %w[attribution cams deals info news photos snow_report].each do |method_name|
-        define_method(method_name) do
-          client.send("resort_#{method_name}", id)
         end
       end
 

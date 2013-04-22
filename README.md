@@ -51,16 +51,60 @@ on_the_snow = OnTheSnow.new(...)
 
 ### `OnTheSnow`
 
+Method:
+
 * `.new(options = {})` : this is an alias for `OnTheSnow::Client.new`
 
 ### `OnTheSnow::Client`
 
+Methods:
+
 * `.new(options = {})`
 * `#resort(resort_id)` : returns a new `OnTheSnow::Client::Resort`
 
+### `OnTheSnow::Client::Attribution`
+
+Provides the `#attribution` method to any instance of `OnTheSnow::Client`.
+
+Example:
+```ruby
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.attribution
+=> { credit_line: 'Snow Reports provided by OnTheSnow.com' }
+```
+
+### `OnTheSnow::Client::Region`
+
+Provides the `#region` method to any instance of `OnTheSnow::Client`.
+
+Method:
+
+* `#states`
+
+Example:
+```ruby
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.region(5).states
+=> [{ id: 5, name: 'Europe', ... }]
+```
+
+### `OnTheSnow::Client::Regions`
+
+Provides the `#regions` method to any instance of `OnTheSnow::Client`.
+
+Example:
+```ruby
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.regions
+=> [{ id: 5, name: 'Europe', states: [{ id: 73, abbrev: 'UK' }, ...] }]
+```
+
 ### `OnTheSnow::Client::Resort`
 
-* `.new(client, resort_id)`
+Provides the `#resort` method to any instance of `OnTheSnow::Client`.
+
+Methods:
+
 * `#attribution`
 * `#cams`
 * `#deals`
@@ -68,6 +112,51 @@ on_the_snow = OnTheSnow.new(...)
 * `#news`
 * `#photos`
 * `#snow_report`
+
+Example:
+```ruby
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.resort(5).attribution
+=> { credit_line: 'Snow Reports provided by OnTheSnow.com', ... }
+```
+
+### `OnTheSnow::Client::Resorts`
+
+Provides the following methods to any instance of `OnTheSnow::Client`:
+
+* `#search_resorts_by_geocode`
+* `#search_resorts_by_name`
+
+Example:
+```ruby
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.search_resorts_by_geocode(lat: 38, lon: -121, distance: 200)
+=> [{ id: 42, distance: 94, ... }]
+
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.search_resorts_by_name(search: 'mammoth')
+=> [{ id: 42, ... }]
+```
+
+### `OnTheSnow::Client::State`
+
+Provides the `#state` method to any instance of `OnTheSnow::Client`.
+
+Methods:
+
+* `#cams`
+* `#deals`
+* `#news`
+* `#photos`
+* `#resorts_last_update`
+* `#snow_report`
+
+Example:
+```ruby
+on_the_snow = OnTheSnow::Client.new
+on_the_snow.state('CN').news
+=> [{ id: 42, description: 'News content.', ... }]
+```
 
 Please consult the [RubyDoc](http://rubydoc.info/gems/on_the_snow/frames) for more details.
 

@@ -11,9 +11,20 @@ class String
   end
 
   def camelize
-    string = self.to_s
+    string = self.to_s.dup
     string = string.sub(/^[a-z\d]*/) { $&.capitalize }
     string.gsub(/(?:_|(\/))([a-z\d]*)/i) { "#{$1}#{$2.capitalize}" }.gsub('/', '::')
+  end
+
+  def cast_boolean
+    case self.to_s
+    when 'y'
+      true
+    when 'n'
+      false
+    else
+      self.to_s
+    end
   end
 
 end

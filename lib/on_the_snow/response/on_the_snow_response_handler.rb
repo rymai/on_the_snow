@@ -1,4 +1,6 @@
 require 'faraday'
+require 'on_the_snow/core_ext/array'
+require 'on_the_snow/core_ext/hash'
 
 module OnTheSnow
   module Response
@@ -6,34 +8,9 @@ module OnTheSnow
 
       def on_complete(env)
         unless env[:body].has_key?('Fault')
-          body = env[:body].flatten[1]['return']
-          body = case body
-                when Array
-                  body.each { |e| e.symbolize_keys! && e = replace_booleans!(e) }
-                when Hash
-                  body.symbolize_keys!
-                  replace_booleans!(body)
-                end
-
-          env[:body] = body
-        end
-      end
-
-      private
-
-      def replace_booleans!(body)
-        body.each do |k, v|
-          if v.is_a?(Hash)
-            body[k] = replace_booleans!(v)
-          else
-            body[k] = case v
-                      when 'y'
-                        true
-                      when 'n'
-                        false
-                      else
-                        v
-                      end
+          flatten_results = env[:body].flatten
+          unless flatten_results[1].empty?
+            env[:body] = flatten_results[1]['return'].to_result!
           end
         end
       end

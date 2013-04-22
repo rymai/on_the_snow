@@ -25,7 +25,7 @@ describe OnTheSnow::Client::Resort do
     end
   end
 
-  let(:client) { Class.new.send(:include, OnTheSnow::Client::Resort::Helper).new }
+  let(:client) { Class.new.send(:include, described_class::Helper).new }
   let(:resort) { described_class.new(client, 5) }
 
   describe '#attribution' do

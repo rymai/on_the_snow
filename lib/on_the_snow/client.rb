@@ -1,7 +1,13 @@
 require 'on_the_snow/config'
 require 'on_the_snow/connection'
 require 'on_the_snow/request'
+
+require 'on_the_snow/client/attribution'
+require 'on_the_snow/client/region'
+require 'on_the_snow/client/regions'
 require 'on_the_snow/client/resort'
+require 'on_the_snow/client/resorts'
+require 'on_the_snow/client/state'
 
 module OnTheSnow
 
@@ -15,7 +21,12 @@ module OnTheSnow
     include Connection
     include Request
 
+    include Attribution::Helper
+    include Region::Helper
+    include Regions::Helper
     include Resort::Helper
+    include Resorts::Helper
+    include State::Helper
 
     attr_accessor *Config::VALID_OPTIONS_KEYS
 

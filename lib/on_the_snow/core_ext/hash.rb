@@ -3,7 +3,7 @@ require 'on_the_snow/core_ext/string'
 class Hash
 
   def symbolize_keys!
-    self.keys.each do |key|
+    keys.each do |key|
       value = delete(key)
       self[key.to_sym] = value.respond_to?(:symbolize_keys!) ? value.symbolize_keys! : value
     end
@@ -13,8 +13,17 @@ class Hash
   def to_result!
     keys.each do |key|
       value = delete(key)
-      self[key.to_s.underscore.to_sym] = value.respond_to?(:to_result!) ? value.to_result! : value
-    end
+      self[key.to_s.underscore.to_sym] = case value
+                                         when Array
+                                           value.map { |v| v.respond_to?(:to_result!) ? v.to_result! : v }
+                                         else
+                                           if value.respond_to?(:to_result!)
+                                             value.to_result!
+                                          else
+                                            value.respond_to?(:cast_boolean) ? value.cast_boolean : value
+                                          end
+                                         end
+      end
     self
   end
 

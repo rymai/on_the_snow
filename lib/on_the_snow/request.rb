@@ -17,7 +17,7 @@ module OnTheSnow
     # Perform an HTTP request
     #
     def request(method, path, params, options)
-      path = [path, domain, token].join('/') << '?' << query
+      path = [path, domain, token].join('/') << '?' << query(options)
 
       response = connection(options).run_request(method, nil, nil, nil) do |request|
         request.options[:raw] = true if options[:raw]
@@ -32,10 +32,13 @@ module OnTheSnow
       options[:raw] ? response : response.body
     end
 
-    def query
+    def query(options = {})
       query = ['response=json']
       query << "lang=#{lang}" if lang
       query << "met=#{metric}" if metric
+      if q = options.delete(:query)
+        query << q.map { |k, v| "#{k}=#{v}" }.join('&')
+      end
       query.join('&')
     end
 
