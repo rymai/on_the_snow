@@ -13,15 +13,20 @@ module OnTheSnow
 
       module Helper
         def resort(resort_id)
-          @resorts ||= {}
-          @resorts[resort_id] ||= OnTheSnow::Client::Resort.new(self, resort_id)
+          _resorts[resort_id] ||= OnTheSnow::Client::Resort.new(self, resort_id)
+        end
+
+        private
+
+        def _resorts
+          @_resorts ||= {}
         end
 
         # Gets the credit line data for resortd in SnowReport service.
         #
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortAttribution
         #
-        def resort_attribution(resort_id)
+        def _resort_attribution(resort_id)
           get('resort/attribution', resort_id)
         end
 
@@ -31,8 +36,8 @@ module OnTheSnow
         #
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortCams
         #
-        def resort_cams(resort_id)
-          get('resort/cams', resort_id)
+        def _resort_cams(resort_id)
+          get('resort/cams', resort_id, options: { type: :array })
         end
 
         # Get a list of Deal objects which contain deals.
@@ -41,8 +46,8 @@ module OnTheSnow
         #
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortDeals
         #
-        def resort_deals(resort_id)
-          get('resort/deal', resort_id)
+        def _resort_deals(resort_id)
+          get('resort/deal', resort_id, options: { type: :array })
         end
 
         # Gets a view of the resorts information.
@@ -54,7 +59,7 @@ module OnTheSnow
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortInfoMobilePlus
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortInfoWeb
         #
-        def resort_info(resort_id)
+        def _resort_info(resort_id)
           get(subscription, 'resort/info', resort_id)
         end
 
@@ -64,8 +69,8 @@ module OnTheSnow
         #
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortNews
         #
-        def resort_news(resort_id)
-          get('resort/news', resort_id)
+        def _resort_news(resort_id)
+          get('resort/news', resort_id, options: { type: :array })
         end
 
         # Gets a list of resort provided photos for a given resort.
@@ -74,8 +79,8 @@ module OnTheSnow
         #
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortPhotos
         #
-        def resort_photos(resort_id)
-          get('resort/photos', resort_id)
+        def _resort_photos(resort_id)
+          get('resort/photos', resort_id, options: { type: :array })
         end
 
         # Get a snow report for a resort.
@@ -87,7 +92,7 @@ module OnTheSnow
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortSnowReportMobilePlus
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getResortSnowReportWeb
         #
-        def resort_snow_report(resort_id)
+        def _resort_snow_report(resort_id)
           get(subscription, 'resort/snow', resort_id)
         end
       end

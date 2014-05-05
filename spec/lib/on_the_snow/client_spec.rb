@@ -24,10 +24,14 @@ describe OnTheSnow::Client do
     end
 
     context 'with attrs set' do
-      let(:client) { described_class.new(subscription: 'lite') }
+      let(:client) { described_class.new('subscription' => 'lite', domain: 'www.google.com') }
 
       it 'returns the custom subscription' do
         client.subscription.should eq 'lite'
+      end
+
+      it 'returns the custom domain' do
+        client.domain.should eq 'www.google.com'
       end
     end
   end

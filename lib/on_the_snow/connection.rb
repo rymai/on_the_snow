@@ -1,7 +1,7 @@
 require 'on_the_snow/config'
 require 'faraday'
 require 'faraday_middleware/parse_oj'
-require 'on_the_snow/response/on_the_snow_response_handler'
+require 'on_the_snow/faraday/response/on_the_snow_response_handler'
 
 module OnTheSnow
   module Connection
@@ -27,7 +27,7 @@ module OnTheSnow
         url: endpoint,
       }
 
-      @connection ||= Faraday.new(default_options.merge(connection_options)) do |builder|
+      @connection ||= ::Faraday.new(default_options.merge(connection_options)) do |builder|
         # builder.response :logger
         builder.response :on_the_snow
         builder.response :oj

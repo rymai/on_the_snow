@@ -18,10 +18,6 @@ describe OnTheSnow::Client::State do
       it 'exposes its state id' do
         state.id.should eq 'CN'
       end
-
-      it 'exposes its client' do
-        state.client.should eq client
-      end
     end
   end
 
@@ -30,7 +26,7 @@ describe OnTheSnow::Client::State do
 
   describe '#cams' do
     it 'calls the helper method' do
-      client.should_receive(:state_cams).with('CN')
+      client.should_receive(:_state_cams).with('CN')
 
       client.state('CN').cams
     end
@@ -38,9 +34,41 @@ describe OnTheSnow::Client::State do
 
   describe '#deals' do
     it 'calls the helper method' do
-      client.should_receive(:state_deals).with('CN')
+      client.should_receive(:_state_deals).with('CN')
 
       client.state('CN').deals
+    end
+  end
+
+  describe '#news' do
+    it 'calls the helper method' do
+      client.should_receive(:_state_news).with('CN')
+
+      client.state('CN').news
+    end
+  end
+
+  describe '#photos' do
+    it 'calls the helper method' do
+      client.should_receive(:_state_photos).with('CN')
+
+      client.state('CN').photos
+    end
+  end
+
+  describe '#resorts_last_update' do
+    it 'calls the helper method' do
+      client.should_receive(:_state_resorts_last_update).with('CN')
+
+      client.state('CN').resorts_last_update
+    end
+  end
+
+  describe '#snow_report' do
+    it 'calls the helper method' do
+      client.should_receive(:_state_snow_report).with('CN')
+
+      client.state('CN').snow_report
     end
   end
 
@@ -55,20 +83,14 @@ describe OnTheSnow::Client::State::Helper do
     state.id.should eq 'CN'
   end
 
-  describe '#state_cams' do
+  describe '#cams' do
     it 'calls the API' do
-      client.should_receive(:get).with('state/cams', 'CN')
+      client.should_receive(:get).with('state/cams', 'CN', options: { type: :array })
 
-      client.state_cams('CN')
+      client.state('CN').cams
     end
 
     context 'real request', :vcr, if: ForReal.ok? && ForReal.subscription?('web') do
-      it 'returns a valid response' do
-        response = @client.state_cams('CN')
-        # FIME: I don't have access to the OTS Cams service
-        # response[:has_nordic].should eq false
-      end
-
       it 'returns a valid response' do
         response = @client.state('CN').cams
         # FIME: I don't have access to the OTS Cams service
@@ -77,60 +99,46 @@ describe OnTheSnow::Client::State::Helper do
     end
   end
 
-  describe '#state_deals' do
+  describe '#deals' do
     it 'calls the API' do
-      client.should_receive(:get).with('state/deals', 'CN')
+      client.should_receive(:get).with('state/deals', 'CN', options: { type: :array })
 
-      client.state_deals('CN')
+      client.state('CN').deals
     end
 
     context 'real request', :vcr, if: ForReal.ok? do
-      it 'returns a valid response' do
-        response = @client.state_deals('CN')
-        response[0][:description].should eq 'A list of the early bird season pass prices for ski resorts in California.'
-      end
-
       it 'returns a valid response' do
         response = @client.state('CN').deals
-        response[0][:id].should eq 584723
+        response[0][:id].should be_a(Fixnum)
+        response[0][:description].should be_a(String)
       end
     end
   end
 
-  describe '#state_news' do
+  describe '#news' do
     it 'calls the API' do
-      client.should_receive(:get).with('state/news', 'CN')
+      client.should_receive(:get).with('state/news', 'CN', options: { type: :array })
 
-      client.state_news('CN')
+      client.state('CN').news
     end
 
     context 'real request', :vcr, if: ForReal.ok? do
       it 'returns a valid response' do
-        response = @client.state_news('CN')
-        response[0][:description].should eq 'Winter had one last gasp but spring will now settle in for the West Coast mountains.'
-      end
-
-      it 'returns a valid response' do
         response = @client.state('CN').news
-        response[0][:id].should eq 584821
+        response[0][:id].should be_a(Fixnum)
+        response[0][:description].should be_a(String)
       end
     end
   end
 
-  describe '#state_photos' do
+  describe '#photos' do
     it 'calls the API' do
-      client.should_receive(:get).with('state/photos', 'CN')
+      client.should_receive(:get).with('state/photos', 'CN', options: { type: :array })
 
-      client.state_photos('CN')
+      client.state('CN').photos
     end
 
     context 'real request', :vcr, if: ForReal.ok? && ForReal.subscription?('web') do
-      it 'returns a valid response' do
-        response = @client.state_photos('CN')
-        # FIME: I don't have access to the OTS Cams service
-        # response[:has_nordic].should eq false
-      end
-
       it 'returns a valid response' do
         response = @client.state('CN').photos
         # FIME: I don't have access to the OTS Cams service
@@ -139,40 +147,30 @@ describe OnTheSnow::Client::State::Helper do
     end
   end
 
-  describe '#state_resorts_last_update' do
+  describe '#resorts_last_update' do
     it 'calls the API' do
-      client.should_receive(:get).with('region', 'CN', 'resorts/lastupdate')
+      client.should_receive(:get).with('region', 'CN', 'resorts/lastupdate', options: { type: :array })
 
-      client.state_resorts_last_update('CN')
+      client.state('CN').resorts_last_update
     end
 
     context 'real request', :vcr, if: ForReal.ok? do
       it 'returns a valid response' do
-        response = @client.state_resorts_last_update('CN')
-        response[0][:name].should eq 'Alpine Meadows'
-      end
-
-      it 'returns a valid response' do
         response = @client.state('CN').resorts_last_update
         response[0][:id].should eq 5
+        response[0][:name].should eq 'Alpine Meadows'
       end
     end
   end
 
-  describe '#state_snow_report' do
+  describe '#snow_report' do
     it 'calls the API' do
-      client.should_receive(:get).with('web', 'region/resorts/snow', 'CN')
+      client.should_receive(:get).with('web', 'region/resorts/snow', 'CN', options: { type: :array })
 
-      client.state_snow_report('CN')
+      client.state('CN').snow_report
     end
 
     context 'real request', :vcr, if: ForReal.ok? && ForReal.subscription?('web') do
-      it 'returns a valid response' do
-        response = @client.state_snow_report('CN')
-        # FIME: I don't have access to the OTS Cams service
-        # response[:has_nordic].should eq false
-      end
-
       it 'returns a valid response' do
         response = @client.state('CN').snow_report
         # FIME: I don't have access to the OTS Cams service

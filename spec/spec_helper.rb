@@ -33,25 +33,23 @@ end
 
 module ForReal
 
-  def self.file
-    '.for_real.yml'
-  end
+  CREDENTIALS_FILE = '.for_real.yml'
 
   def self.ok?
-    @available ||= File.exists?(file)
+    @available ||= File.exists?(CREDENTIALS_FILE)
   end
 
   def self.subscription?(subscription)
-    credentials[:subscription] == subscription
+    credentials['subscription'] == subscription
   end
 
   def self.credentials
-    yml[:credentials]
+    yml['credentials']
   end
 
   def self.yml
     @yml ||= if ok?
-      YAML.load(File.open(file)).symbolize_keys!
+      YAML.load(File.open(CREDENTIALS_FILE))
     end
   end
 

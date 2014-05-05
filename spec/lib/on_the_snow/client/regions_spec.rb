@@ -6,7 +6,7 @@ describe OnTheSnow::Client::Regions::Helper do
 
   describe '#regions' do
     it 'calls the API' do
-      client.should_receive(:get).with('regions')
+      client.should_receive(:get).with('regions', options: { type: :array })
 
       client.regions
     end

@@ -13,7 +13,6 @@ group :development do
   gem 'guard-rspec'
   gem 'yard'
   gem 'redcarpet'
-  gem 'pimpmychangelog'
 end
 
 # The test group will be
@@ -21,7 +20,7 @@ end
 #
 group :test do
   gem 'rspec'
-  gem 'vcr',     '~> 2.4'
-  gem 'webmock', '~> 1.11'
+  gem 'vcr',     '~> 2.6'
+  gem 'webmock', '~> 1.14'
   gem 'coveralls', require: false
 end

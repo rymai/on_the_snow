@@ -13,8 +13,14 @@ module OnTheSnow
 
       module Helper
         def region(region_id)
-          @regions ||= {}
-          @regions[region_id] ||= OnTheSnow::Client::Region.new(self, region_id)
+          _regions[region_id] ||= OnTheSnow::Client::Region.new(self, region_id)
+        end
+
+        private
+
+
+        def _regions
+          @_regions ||= {}
         end
 
         # Gets a Region object which contain all the State/Provinces listed by
@@ -24,7 +30,7 @@ module OnTheSnow
         #
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getRegion
         #
-        def region_states(region_id)
+        def _region_states(region_id)
           get('region/states', region_id)
         end
       end

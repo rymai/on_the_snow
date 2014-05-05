@@ -19,7 +19,7 @@ module OnTheSnow
           query = { distance: 50, limit: 10 }.merge(options)
           query[:get_n] = query.delete(:limit)
 
-          @regions ||= get('find/resorts/geo', { options: { query: query } })
+          get('find/resorts/geo', options: { query: query, type: :array })
         end
 
         # Searches for resorts by name, matchining search string as %search%.
@@ -34,7 +34,7 @@ module OnTheSnow
           query = { limit: 10 }.merge(options)
           query[:get_n] = query.delete(:limit)
 
-          @regions ||= get('find/resorts/name', { options: { query: query } })
+          get('find/resorts/name', options: { query: query, type: :array })
         end
 
         private

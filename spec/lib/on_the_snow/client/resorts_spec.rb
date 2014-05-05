@@ -13,7 +13,7 @@ describe OnTheSnow::Client::Resorts::Helper do
 
     context 'with the required arguments' do
       it 'calls the API' do
-        client.should_receive(:get).with('find/resorts/geo', { options: { query: { lat: 38, lon: -121, distance: 50, get_n: 10 } } })
+        client.should_receive(:get).with('find/resorts/geo', { options: { query: { lat: 38, lon: -121, distance: 50, get_n: 10 }, type: :array } })
 
         client.search_resorts_by_geocode(lat: 38, lon: -121)
       end
@@ -37,7 +37,7 @@ describe OnTheSnow::Client::Resorts::Helper do
 
     context 'with the required arguments' do
       it 'calls the API' do
-        client.should_receive(:get).with('find/resorts/name', { options: { query: { search: 'mammoth', get_n: 10 } } })
+        client.should_receive(:get).with('find/resorts/name', { options: { query: { search: 'mammoth', get_n: 10 }, type: :array } })
 
         client.search_resorts_by_name(search: 'mammoth')
       end

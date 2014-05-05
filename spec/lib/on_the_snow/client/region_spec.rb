@@ -18,10 +18,6 @@ describe OnTheSnow::Client::Region do
       it 'exposes its region id' do
         region.id.should eq 5
       end
-
-      it 'exposes its client' do
-        region.client.should eq client
-      end
     end
   end
 
@@ -30,7 +26,7 @@ describe OnTheSnow::Client::Region do
 
   describe '#states' do
     it 'calls the helper method' do
-      client.should_receive(:region_states).with(5)
+      client.should_receive(:_region_states).with(5)
 
       client.region(5).states
     end
@@ -47,22 +43,18 @@ describe OnTheSnow::Client::Region::Helper do
     region.id.should eq 5
   end
 
-  describe '#region_states' do
+  describe '#states' do
     it 'calls the API' do
       client.should_receive(:get).with('region/states', 5)
 
-      client.region_states(5)
+      client.region(5).states
     end
 
     context 'real request', :vcr, if: ForReal.ok? do
       it 'returns a valid response' do
-        response = @client.region_states(5)
-        response[:name].should eq 'Europe'
-      end
-
-      it 'returns a valid response' do
         response = @client.region(5).states
         response[:states][0][:abbrev].should eq 'UK'
+        response[:name].should eq 'Europe'
       end
     end
   end

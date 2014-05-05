@@ -1,3 +1,5 @@
+require 'on_the_snow/response'
+
 module OnTheSnow
 
   # Defines HTTP request methods
@@ -9,18 +11,21 @@ module OnTheSnow
     def get(*args)
       opts = args.last.is_a?(Hash) ? args.pop : {}
 
-      request(:get, args.join('/'), opts[:params] || {}, opts[:options] || {})
+      _request(:get, args.join('/'), opts[:params] || {}, opts[:options] || {})
     end
 
     private
 
     # Perform an HTTP request
     #
-    def request(method, path, params, options)
+    def _request(method, path, params, options)
+      ::OnTheSnow::Response.new(_faraday_request(method, path, params, options), options.slice(:type))
+    end
+
+    def _faraday_request(method, path, params, options)
       path = [path, domain, token].join('/') << '?' << query(options)
 
-      response = connection(options).run_request(method, nil, nil, nil) do |request|
-        request.options[:raw] = true if options[:raw]
+      connection(options).run_request(method, nil, nil, nil) do |request|
         case method.to_sym
         when :delete, :get
           request.url(path, params)
@@ -29,7 +34,6 @@ module OnTheSnow
           request.body = params unless params.empty?
         end
       end
-      options[:raw] ? response : response.body
     end
 
     def query(options = {})

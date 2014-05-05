@@ -54,6 +54,7 @@ module OnTheSnow
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS
+    attr_reader :options
 
     # When this module is extended, set all configuration options to their default values
     #
@@ -68,17 +69,14 @@ module OnTheSnow
       self
     end
 
-    # Create a hash of options and their values
-    #
-    def options
-      VALID_OPTIONS_KEYS.inject({}) { |opts, k| opts[k] = send(k); opts }
-    end
-
     # Reset all configuration options to defaults
     #
     def reset
-      VALID_OPTIONS_KEYS.each do |valid_option_key|
-        self.send("#{valid_option_key}=", OnTheSnow::Config.const_get("DEFAULT_#{valid_option_key.upcase}"))
+      @options = VALID_OPTIONS_KEYS.inject({}) do |opts, k|
+        default_option = OnTheSnow::Config.const_get("DEFAULT_#{k.upcase}")
+        self.send("#{k}=", default_option)
+        opts[k.to_s] = default_option #unless default_option.nil?
+        opts
       end
       self
     end

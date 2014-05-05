@@ -162,7 +162,7 @@ Please consult the [RubyDoc](http://rubydoc.info/gems/on_the_snow/frames) for mo
 
 ## File an issue
 
-Before you file an issue, make sure you have read the _[Contributing guide](https://github.com/rymai/on_the_snow/blob/master/CONTRIBUTING.md)_ that contains some important information.
+Before you file an issue, make sure you have read the *[Contributing guide](https://github.com/rymai/on_the_snow/blob/master/CONTRIBUTING.md)* that contains some important information.
 
 You can report bugs and feature requests to [GitHub Issues](https://github.com/rymai/on_the_snow/issues).
 

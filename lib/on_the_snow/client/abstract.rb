@@ -5,7 +5,7 @@ module OnTheSnow
     #
     class Abstract
 
-      attr_reader :client, :id
+      attr_reader :id
 
       def self.chainable_methods
         raise NotImplementedError
@@ -14,11 +14,17 @@ module OnTheSnow
       def initialize(client, resource_id)
         @client = client
         @id = resource_id
+      end
 
-        self.class.chainable_methods.each do |method_name|
-          self.class.define_method(method_name) do
-            client.send("#{self.class.name.downcase.sub(/.+::(\w+)$/, '\1')}_#{method_name}", id)
-          end
+      def respond_to?(method, include_private = false)
+        super || self.class.chainable_methods.include?(method.to_s)
+      end
+
+      def method_missing(method, *args, &block)
+        if self.class.chainable_methods.include?(method.to_s)
+          @client.send("_#{self.class.name.downcase.sub(/.+::(\w+)$/, '\1')}_#{method}", id)
+        else
+          super
         end
       end
 

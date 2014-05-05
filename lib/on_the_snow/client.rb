@@ -38,7 +38,7 @@ module OnTheSnow
     def initialize(attrs = {})
       attrs = self.class.options.merge(attrs)
       Config::VALID_OPTIONS_KEYS.each do |key|
-        instance_variable_set("@#{key}", attrs[key])
+        send("#{key}=", attrs[key.to_sym] || attrs[key.to_s])
       end
     end
   end

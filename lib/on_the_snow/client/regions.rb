@@ -14,7 +14,7 @@ module OnTheSnow
         # @see http://www.onthesnow.com/ots/webservice_tools/OTSWebService2009.html#getRegions
         #
         def regions
-          @regions ||= get('regions')
+          @regions ||= get('regions', options: { type: :array })
         end
       end
 
